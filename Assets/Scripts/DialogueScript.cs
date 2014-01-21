@@ -90,6 +90,20 @@ public class DialogueScript : MonoBehaviour {
                 }
             }
         }
+
+        if (currentNode != null && currentNode.GetType() == typeof(EndNode) && (currentNode as EndNode).isConversationEnding()) {
+            if (GUI.Button(
+                new Rect(
+                    Screen.width / 2 - nameplateWidth / 2,
+                        nameplateHeight + dialogueHeight,
+                        nameplateWidth,
+                        nameplateHeight
+                    ), "Let's go home!")
+                )
+            {
+                Application.LoadLevel(0);
+            }
+        }
     }
 
     void Update()
@@ -136,7 +150,12 @@ public class DialogueScript : MonoBehaviour {
             answers = q.getAnswers();
         }
         else answers = null;
-        currentNode = currentNode.next;
+
+        if (currentNode.GetType() == typeof(EndNode))
+        {
+            (currentNode as EndNode).End();
+        } 
+        else currentNode = currentNode.next;
     }
     public void Ask(string n, string d, Dictionary<string, ConversationNode> a, bool isPlayer = false)
     {
