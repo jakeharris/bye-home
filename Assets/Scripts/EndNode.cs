@@ -11,7 +11,8 @@ public class EndNode : ConversationNode {
         isEnding = true;
         if (completesQuest)
         {
-            PlayerPrefs.SetInt("Tundra", 0); //basically just say SOMETHING about the tundra to signal that we beat it
+            PlayerPrefs.SetInt(Application.loadedLevelName, 0); //basically just say SOMETHING about the level to signal that we beat it
+            Debug.Log(Application.loadedLevelName);
             GameObject background = GameObject.Find("Background");
             if (background != null)
             {
